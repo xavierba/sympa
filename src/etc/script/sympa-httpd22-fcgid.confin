@@ -1,0 +1,38 @@
+### Apache httpd 2.2 configuration for Sympa
+
+## Definition of Sympa FastCGI server.
+<IfModule mod_fcgid.c>
+    # You may want to tune the Fcgid settings either here
+    # or in /etc/httpd/conf.d/fcgid.conf
+    #FcgidIOTimeout 300
+    #FcgidMaxRequestLen 131072
+
+    # If you changed wwsympa_url in sympa.conf, change this path too.
+    <Location /sympa>
+        SetHandler fcgid-script
+        # Don't forget to edit lines below!
+        Order deny,allow
+        Deny from all
+        #Allow from all
+    </Location>
+    ScriptAlias /sympa --execcgidir--/wwsympa-wrapper.fcgi
+
+#    # You may uncomment following lines to enable SympaSOAP feature.
+#    <Location /sympasoap>
+#        SetHandler fcgid-script
+#        # Don't forget to edit lines below!
+#        Order deny,allow
+#        Deny from all
+#        #Allow from all
+#    </Location>
+#    ScriptAlias /sympasoap --execcgidir--/sympa_soap_server-wrapper.fcgi
+</IfModule>
+
+## Other static contents
+Alias /static-sympa/css --cssdir--
+Alias /static-sympa/pictures --picturesdir--
+Alias /static-sympa --staticdir--
+
+## If your host is dedicated to Sympa:
+#RewriteEngine on
+#RewriteRule ^/?$ /sympa [R=301]

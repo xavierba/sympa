@@ -40,6 +40,10 @@ noinst_DATA = \
 	sympa-tmpfiles.conf
 endif
 
+conf_DATA = \
+	sympa-httpd22-fcgid.conf \
+	sympa-httpd24-fcgid.conf
+
 EXTRA_DIST = \
 	sympa.in \
 	sympa-archive.servicein \
@@ -49,9 +53,11 @@ EXTRA_DIST = \
 	sympa.servicein \
 	nginx-sympasoap.servicein \
 	nginx-wwsympa.servicein \
-	sympa-tmpfiles.confin
+	sympa-tmpfiles.confin \
+	sympa-httpd22-fcgid.confin \
+	sympa-httpd24-fcgid.confin
 
-CLEANFILES = $(init_SCRIPTS) $(units_DATA) $(noinst_DATA)
+CLEANFILES = $(init_SCRIPTS) $(units_DATA) $(noinst_DATA) $(conf_DATA)
 
 sympa: sympa.in Makefile
 	@rm -f $@
@@ -81,5 +87,9 @@ sympa: sympa.in Makefile
 		-e 's|--USER--|$(USER)|' \
 		-e 's|--GROUP--|$(GROUP)|' \
 		-e 's|--piddir--|$(piddir)|' \
+		-e 's|--execcgidir--|$(execcgidir)|' \
+		-e 's|--cssdir--|$(cssdir)|' \
+		-e 's|--picturesdir--|$(picturesdir)|' \
+		-e 's|--staticdir--|$(staticdir)|' \
 		< $(srcdir)/$@in > $@
 
