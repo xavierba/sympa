@@ -42,7 +42,8 @@ endif
 
 conf_DATA = \
 	sympa-httpd22-fcgid.conf \
-	sympa-httpd24-fcgid.conf
+	sympa-httpd24-fcgid.conf \
+	sympa-lighttpd.conf
 
 EXTRA_DIST = \
 	sympa.in \
@@ -55,7 +56,8 @@ EXTRA_DIST = \
 	nginx-wwsympa.servicein \
 	sympa-tmpfiles.confin \
 	sympa-httpd22-fcgid.confin \
-	sympa-httpd24-fcgid.confin
+	sympa-httpd24-fcgid.confin \
+	sympa-lighttpd.confin
 
 CLEANFILES = $(init_SCRIPTS) $(units_DATA) $(noinst_DATA) $(conf_DATA)
 

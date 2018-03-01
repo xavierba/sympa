@@ -1,0 +1,18 @@
+server.modules += ("mod_fastcgi")
+server.modules += ("mod_alias")
+
+alias.url += ( "/static-sympa/css/" => "--cssdir--" )
+alias.url += ( "/static-sympa/pictures/" => "--picturesdir--" )
+alias.url += ( "/static-sympa/" => "--staticdir--" )
+
+$HTTP["url"] =~ "\^/sympa" {
+fastcgi.server = ( "/sympa" =>
+    ((    "check-local"    =>    "disable",
+        "bin-path"    =>    "--execcgidir--/wwsympa-wrapper.fcgi",
+        "socket"    =>    "/var/run/lighttpd/sympa.sock",
+        "max-procs"    =>     2,
+        "idle-timeout"    =>     20,
+    ))
+)
+}
+
